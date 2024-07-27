@@ -46,12 +46,10 @@ class MainActivity : AppCompatActivity() {
         // create an instance of the Fused
         // Location Provider Client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        Log.e("lat", weather_url1)
 
         // on clicking this button function to
         // get the coordinates will be called
         btVar1.setOnClickListener {
-            Log.e("lat", "onClick")
             // function to find the coordinates
             // of the last location
             checkForPermission()
@@ -87,7 +85,6 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun obtainLocation() {
-        Log.e("lat", "function")
         // get the last location
 
         fusedLocationClient.lastLocation
@@ -108,7 +105,6 @@ class MainActivity : AppCompatActivity() {
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
         val url: String = weather_url1
-        Log.e("lat", url)
 
         // Request a string response
         // from the provided URL.
