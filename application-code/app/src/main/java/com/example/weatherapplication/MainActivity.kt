@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     var weather_url1 = ""
 
     // api id for url
-    var api_key = "bc1b16d6082b4e2fa7431a43df306a0a"
+    var api_key = "YOUR_API_KEY"
 
 
     private lateinit var btVar1 : Button
