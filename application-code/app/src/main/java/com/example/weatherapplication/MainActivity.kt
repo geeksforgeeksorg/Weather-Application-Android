@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -18,12 +17,14 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import org.json.JSONObject
 
+
 class MainActivity : AppCompatActivity() {
 
     // weather url to get JSON
     var weather_url1 = ""
 
     // api id for url
+
     var api_key = "YOUR_API_KEY"
 
 
@@ -91,7 +92,9 @@ class MainActivity : AppCompatActivity() {
             .addOnSuccessListener { location: Location? ->
                 // get the latitude and longitude
                 // and create the http URL
-                weather_url1 = "https://api.weatherbit.io/v2.0/current?" + "lat=" + location?.latitude + "&lon=" + location?.longitude + "&key=" + api_key + "&include=minutely"
+                if (location != null) {
+                    weather_url1 = "https://api.openweathermap.org/data/2.5/weather?lat=${location.latitude}&lon=${location.longitude}&units=metric&appid=${api_key}"
+                }
                 // this function will
                 // fetch data from URL
                 getTemp()
@@ -101,7 +104,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    fun getTemp() {
+    private fun getTemp() {
         // Instantiate the RequestQueue.
         val queue = Volley.newRequestQueue(this)
         val url: String = weather_url1
@@ -109,19 +112,22 @@ class MainActivity : AppCompatActivity() {
         // Request a string response
         // from the provided URL.
         val stringReq = StringRequest(Request.Method.GET, url, { response ->
-                // get the JSON object
-                val obj = JSONObject(response)
+            // get the JSON object
+            val obj = JSONObject(response)
 
-                // get the Array from obj of name - "data"
-                val arr = obj.getJSONArray("data")
+            // Getting the temperature readings from response
+            val main: JSONObject = obj.getJSONObject("main")
+            val temperature = main.getString("temp")
+            println(temperature)
 
-                // get the JSON object from the
-                // array at index position 0
-                val obj2 = arr.getJSONObject(0)
+            // Getting the city name
+            val city = obj.getString("name")
+            println(city)
 
                 // set the temperature and the city
                 // name using getString() function
-                textView.text = obj2.getString("temp") + " deg Celsius in " + obj2.getString("city_name")
+                textView.text = "${temperature} deg Celcius in ${city}"
+                System.out.println(obj.toString())
             },
             // In case of any error
             { textView.text = "That didn't work!" })
