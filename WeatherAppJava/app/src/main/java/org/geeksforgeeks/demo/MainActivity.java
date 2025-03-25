@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient fusedLocationClient;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 100;
-    private static final String API_KEY = "f6ad4cb2f90860b05871d505b6b76bf3"; // Replace with your OpenWeatherMap API Key
+    private static final String API_KEY = "YOUR_API_KEY"; // Replace with your OpenWeatherMap API Key
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
